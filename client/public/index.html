@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <title>Леском</title>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+  <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  <div class="cookie-widget" id="cookie-widget-modal">
+    <button class="cookie-widget__cross">+</button>
+    <p class="cookie-widget__text">
+      Наш сайт использует
+      <a href="/cookie">технологию cookies</a>, которая позволяет понимать, как
+      улучшить его работу, чтобы сделать
+      максимально удобным для вас.
+    </p>
+  </div>
+  <style>
+    .cookie-widget {
+      background-color: white;
+      display: none;
+      z-index: 999;
+      position: fixed;
+      bottom: 1rem;
+      left: 1rem;
+      border: 2px solid gray;
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      padding: 0.5rem 2rem;
+      width: 350px;
+      overflow: hidden;
+    }
+
+    .cookie-widget__cross {
+      cursor: pointer;
+      position: absolute;
+      right: 5px;
+      top: 0;
+      border: none;
+      font-size: 2rem;
+      background-color: #ffffff00 !important;
+      transform: rotate(45deg);
+    }
+
+    .cookie-widget__text>a {
+      color: #294e47;
+    }
+  </style>
+  <script>
+    const cookie_widget = () => {
+      let cookieDate = localStorage.getItem("cookieDate");
+      let cookieNotification = document.querySelector("#cookie-widget-modal");
+      let cookieBtn = cookieNotification.querySelector(
+        ".cookie-widget__cross"
+      );
+
+      // Если записи про кукисы нет или она просрочена на 1 год, то показываем информацию про кукисы
+      if (
+        !cookieDate ||
+        cookieDate === null ||
+        +cookieDate + 31536000000 < Date.now()
+      ) {
+        cookieNotification.style.display = "block";
+      }
+
+      // При клике на кнопку, в локальное хранилище записывается текущая дата в системе UNIX
+      cookieBtn.addEventListener("click", function () {
+        localStorage.setItem("cookieDate", Date.now());
+        cookieNotification.style.display = "none";
+      });
+    };
+    cookie_widget();
+  </script>
+</body>
+
+</html>

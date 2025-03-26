@@ -1,0 +1,43 @@
+.account-choose {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+    &__section {
+        background-color: #294e47 !important;
+        text-decoration: none;
+        max-width: 300px;
+        margin: 2rem;
+        padding: 2rem 1rem;
+        width: 24rem;
+        border-radius: 12px;
+        display: flex;
+        justify-content: space-between;
+
+        &__icon {
+            width: 100px;
+            border-radius: 12px;
+            color: white;
+            text-align: center;
+            
+            font-size: 64px;
+        }
+
+        &__title {
+            color: white;
+            text-decoration: none;
+            font-size: 1.25rem;
+            text-align: end;
+            &__description {
+                color: lightgrey;
+                margin-top: auto;
+                text-align: end;
+                font-size: 1rem !important;
+            }
+        }
+
+        &:hover {
+            background-color: rgba(41, 78, 71, 0.85) !important;
+        }
+    }
+}

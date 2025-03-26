@@ -1,0 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #F7F7F7 !important;
+    font-family: 'Roboto' !important;
+    color: #373745 !important;
+}
