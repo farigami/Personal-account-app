@@ -3,10 +3,11 @@ import Container from 'react-bootstrap/Container';
 import { Outlet } from "react-router";
 import './account.scss'
 import { AccountMenu } from './account-menu';
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { Context } from '../..';
+import { observer } from 'mobx-react-lite';
 
-export const Account = () => {
+export const Account = observer(() => {
     const {user} = useContext(Context)    
     return (
         <>
@@ -21,4 +22,4 @@ export const Account = () => {
         </>
     )
 
-}
+})

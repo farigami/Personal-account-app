@@ -1,14 +1,11 @@
 import Container from "react-bootstrap/esm/Container"
-import { Link, useNavigate } from 'react-router';
+import { Link, } from 'react-router';
 import './main.scss'
 import { ACCOUNT_PROFILE_PAGE, ACCOUNT_NOTIFICATION_PAGE, ACCOUNT_COLLATERAL_PAGE, ACCOUNT_PHOTO_REPORT, ACCOUNT_BUILDING_PAGE, MAIN_PAGE, ADMIN_PAGE, ACCOUNT_DOCUMENTS_PAGE } from "../../../utils/consts";
-import { useContext } from "react";
-import { Context } from "../../..";
-import Cookies from 'js-cookie';
+
 import { observer } from 'mobx-react-lite';
 export const AccountMain = observer(() => {
-    const { user } = useContext(Context)
-    const navigate = useNavigate()
+  
     return (
         <Container className="account-choose">
             <Link className="account-choose__section" to={ACCOUNT_PROFILE_PAGE}>

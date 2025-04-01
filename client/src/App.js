@@ -23,7 +23,7 @@ const App = observer(() => {
       setLoading(false)
     })
   }, [user])
-  if (loading) return <Spinner className="m-4" animation="border" variant="success"></Spinner> 
+  if (loading) return <Spinner className="m-4" animation="border" variant="success"></Spinner>
   return (
     <div className="App">
       <Header />

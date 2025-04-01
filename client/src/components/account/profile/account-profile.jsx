@@ -14,6 +14,7 @@ export const AccountProfile = () => {
 
     useEffect(() => {
         profileHandler().then(data => {
+            console.log(data)
             setProfile(...data)
             setLoading(false)
         })

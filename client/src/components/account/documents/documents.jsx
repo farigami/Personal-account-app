@@ -4,7 +4,7 @@ import './documents.scss'
 const Document = () => {
     return (
         <div className="documents__section__document">
-            <i class="bi bi-file-earmark"></i>
+            <div className="documents__section__document__icon"><i class="bi bi-file-earmark"></i></div>
             <div className="documents__section__document__data">
                 <div className="documents__section__document__data__title">Договор подряда</div>
                 <div className="documents__section__document__data__date">24.03.2024</div>

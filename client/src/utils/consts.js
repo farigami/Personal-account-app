@@ -17,3 +17,4 @@ export const ACCOUNT_COLLATERAL_PAGE = '/account/collateral' //Заявки об
 
 //Админ панель
 export const ADMIN_PAGE = '/admin/'
+export const ADMIN_USER_PAGE = '/admin/user/:id' //получение пользователя

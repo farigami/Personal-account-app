@@ -59,7 +59,6 @@ export const CollateralApplication = () => {
                 onChange={e => ItemsSearchHandler(e.target.value)}>
 
             </input>
-            <button className="collateral__button__add" onClick={() => { }}>Добавить свой материал</button>
             {
                 variants.length ?
                     variants.map((variant, index) => {

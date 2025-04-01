@@ -3,7 +3,8 @@ import Tabs from 'react-bootstrap/Tabs';
 
 import Container from "react-bootstrap/esm/Container"
 import './admin.scss'
-import { UsersList } from './admin-users/users-list';
+import { AdminUsersList } from './admin-users/users-list';
+import { CollatealList } from './admin-collateral/collateral-list';
 
 export const AdminLoyout = () => {
     return (
@@ -15,13 +16,13 @@ export const AdminLoyout = () => {
                 justify
             >
                 <Tab eventKey="users" title="Пользователи">
-                    <UsersList />
+                    <AdminUsersList />
                 </Tab>
                 <Tab eventKey="objects" title="Объекты">
                     Tab content for Profile
                 </Tab>
                 <Tab eventKey="collateral" title="Заявки обеспечения">
-                    Tab content for Loooonger Tab
+                    <CollatealList />
                 </Tab>
             </Tabs>
         </Container>

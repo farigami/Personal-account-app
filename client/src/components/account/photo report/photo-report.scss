@@ -3,6 +3,7 @@
         font-size: 2.5rem;
         font-weight: 300;
     }
+    
     &__filter {
         display: flex;
         flex-wrap: wrap;
@@ -30,11 +31,15 @@
     }
 
     img {
+        cursor: pointer;
         margin: 1rem;
         border-radius: 24px;
         height: 300px;
         min-width: 30vw;
         width: 75vw;
         max-width: 490px;
+        &:hover {
+            opacity: 85%;
+        }
     }
 }
