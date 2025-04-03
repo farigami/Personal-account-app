@@ -1,12 +1,54 @@
 import Container from "react-bootstrap/esm/Container"
+import Dropdown from 'react-bootstrap/Dropdown';
+import { Button } from "react-bootstrap";
+import Table from 'react-bootstrap/Table';
 import { useState } from "react";
 import './collateral.scss'
+import { createCollateralHandle } from "../../../http/collateralAPI";
 
 
 
+const CollateralSuccess = ({ items }) => {
+    return (
+        <Container className="collateral mb-4 mt-2" fluid='fluid'>
+            <div className="collateral__success">
+                <i className="collateral__success__check bi bi-check-circle-fill"></i>
+                <div className="collateral__success__title">Заявка обеспечения сформирована</div>
+                <Table striped bordered hover className="mt-2 mb-2">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Название</th>
+                            <th>Тип</th>
+                            <th>Кол-во</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            items.map((item, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td>{index + 1}</td>
+                                        <td>{item.title}</td>
+                                        <td>{item.type}</td>
+                                        <td>{item.value}</td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </Table>
+                <Button className="collateral__success__new mt-2 mb-2" onClick={() => { window.location.reload(); }} variant="success">Создать новую заявку обеспечения <i class="bi bi-plus-square"></i></Button>
+            </div>
+
+        </Container>
+    )
+}
 
 export const CollateralApplication = () => {
     const items = require('./data.json')
+    const [success, setSuccess] = useState(false)
+    const [building, setBuilding] = useState('')
     const [variants, setVariants] = useState([])
     const [selected, setSelected] = useState([])
     const ItemsSearchHandler = (value) => {
@@ -32,8 +74,24 @@ export const CollateralApplication = () => {
         setSelected(correct_selected)
     }
 
+    const sendCollateral = () => {
+        var today = new Date();
+        var time = String(today.getTime())
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+        var yyyy = today.getFullYear();
+        today = dd + '.' + mm + '.' + yyyy;
+        const current_data = { items: selected, building: building, created_date: today}
+        createCollateralHandle(current_data).then(data => { 
+            setSuccess(true) 
+        })
+
+    }
+
+    if (success) { return <CollateralSuccess items={selected} /> }
+
     return (
-        <Container className="collateral" fluid='fluid'>
+        <Container className="collateral " fluid='fluid'>
             {selected.length ?
                 <div className="collateral-selected">
                     {selected.map((select, index) => {
@@ -48,7 +106,20 @@ export const CollateralApplication = () => {
 
                     })
                     }
-                    <button className="collateral-selected__send">Отправить заявку</button>
+                    <Dropdown className="collateral-selected__building" >
+                        <Dropdown.Toggle variant='secondary'>{!building ? "Выберите Объект" : `Выбран объект: ${building}`}</Dropdown.Toggle>
+                        <Dropdown.Menu>
+
+                            <Dropdown.Item
+                                onClick={() => setBuilding('Патрушево')}
+
+                            >
+                                Патрушево
+                            </Dropdown.Item>
+
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    <button className="collateral-selected__send" onClick={() => sendCollateral()}>Отправить заявку</button>
                 </div>
                 : null
             }

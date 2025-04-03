@@ -2,16 +2,20 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Form, Spinner } from "react-bootstrap";
-import { getRoleTypesHandle } from '../../../http/adminAPI';
+import { passwordGenerate } from '../../../utils/passwordGenerate';
+import { getRoleTypesHandle, registerUserHandle } from '../../../http/adminAPI';
 import './create-user-modal.scss'
 export const CreateUserModal = ({ show, onHide }) => {
     const [loading, setLoading] = useState(true)
+    const [success, setSuccess] = useState(false)
+    const [message, setMessage] = useState('')
     const [roles, setRoles] = useState([])
     const [selectedRole, setSelectedRole] = useState([])
     const [userForm, setUserForm] = useState({
         first_name: '',
         last_name: '',
         patronymic: '',
+        phone: '',
         login: '',
         password: ''
     })
@@ -24,8 +28,14 @@ export const CreateUserModal = ({ show, onHide }) => {
 
     const registerHandler = () => {
         let current_user = userForm
-        current_user.additional = selectedRole
-        console.log(current_user) 
+        current_user.roles = selectedRole.map(selected => { return selected.additional_id })
+        registerUserHandle(current_user).then((data, status) => {
+            console.log(data)
+            if (data == 201) {
+                setSuccess(true)
+            }
+            setMessage(data.message)
+        })
     }
 
     const changeHandler = (event) => {
@@ -61,7 +71,7 @@ export const CreateUserModal = ({ show, onHide }) => {
             </Modal.Header>
 
             <Modal.Body>
-                {
+                {!success ?
                     loading ?
                         <Spinner animation="border" variant="success">
                             <span className="visually-hidden">Loading...</span>
@@ -79,6 +89,13 @@ export const CreateUserModal = ({ show, onHide }) => {
                                 onChange={changeHandler}
                                 className="mt-3"
                                 placeholder="Фамилия"
+
+                            />
+                            <Form.Control
+                                name='phone'
+                                onChange={changeHandler}
+                                className="mt-3"
+                                placeholder="Номер телефона"
 
                             />
                             <Form.Control
@@ -111,10 +128,10 @@ export const CreateUserModal = ({ show, onHide }) => {
                                                     className='choose-roles__select'
                                                     key={role.id}
                                                 >
-                                                    <div onClick={() => unselectRoleHandle(role)}><i class="bi bi-person-dash-fill"></i> {role.value}</div>
+                                                    <div onClick={() => unselectRoleHandle(role)}><i className="bi bi-person-dash-fill"></i> {role.value}</div>
                                                     <hr />
                                                     {role.additional.map(additional => {
-                                                        return <p className={role.additional_id === additional.id && 'choose-roles__select__type'} onClick={() => additionalRoleHandle(additional)}>{additional.value}</p>
+                                                        return <p className={role.additional_id === additional.id ? 'choose-roles__select__type' : undefined} onClick={() => additionalRoleHandle(additional)}>{additional.value}</p>
                                                     })}
                                                 </span>
                                                 )
@@ -124,12 +141,20 @@ export const CreateUserModal = ({ show, onHide }) => {
                             </div>
                             <Form.Control
                                 name='password'
+                                value={userForm.password}
                                 onChange={changeHandler}
                                 className="mt-3"
                                 placeholder="Пароль пользователя"
                                 type="password"
                             />
+                            <Button className='mt-2' onClick={() => setUserForm({ ...userForm, password: passwordGenerate() })}>Сгенерировать пароль</Button>
+                            <p>{message}</p>
                         </Form>
+                    :
+                    <>
+                        <p>Логин: {userForm.login}</p>
+                        <p>Пароль: {userForm.password}</p>
+                    </>
                 }
             </Modal.Body>
 

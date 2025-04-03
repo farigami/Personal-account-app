@@ -14,12 +14,11 @@ export const AccountProfile = () => {
 
     useEffect(() => {
         profileHandler().then(data => {
-            console.log(data)
-            setProfile(...data)
+            setProfile(data)
             setLoading(false)
         })
     }, [])
-    const newProfileData = (e) => {
+    const newProfileDataHandle = (e) => {
         setProfile({...profile, [e.target.name]: e.target.value})
         // if (newPassword !== newPasswordConfirm || newPassword.length) {
         //     setMessage(
@@ -47,28 +46,28 @@ export const AccountProfile = () => {
                         type="tel"
                         name="phone"
                         value={profile.phone}
-                        onChange={(e) => newProfileData(e)}
+                        onChange={(e) => newProfileDataHandle(e)}
                     />
                     <br />
                     <Form.Label>Имя</Form.Label>
                     <Form.Control
                         name="first_name"
                         value={profile.first_name}
-                        onChange={(e) => newProfileData(e)}
+                        onChange={(e) => newProfileDataHandle(e)}
                     />
                     <br />
                     <Form.Label>Фамилия</Form.Label>
                     <Form.Control
                         name="last_name"
                         value={profile.last_name}
-                        onChange={(e) => newProfileData(e)}
+                        onChange={(e) => newProfileDataHandle(e)}
                     />
                     <br />
                     <Form.Label>Отчество</Form.Label>
                     <Form.Control
                         name="patronymic"
                         value={profile.patronymic}
-                        onChange={(e) => newProfileData(e)}
+                        onChange={(e) => newProfileDataHandle(e)}
                     />
                 </Form.Group>
                 <hr />

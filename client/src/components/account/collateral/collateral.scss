@@ -1,4 +1,18 @@
 .collateral {
+    &__success {
+        text-align: center;
+
+        &__check {
+            font-size: 18vw;
+            color: #294e47;
+        }
+        &__title {
+            font-size: 2rem;
+        }
+        &__new {
+            font-size: 1.25rem;
+        }
+    }
 
     &__search {
         margin-top: 1rem;
@@ -23,6 +37,7 @@
             margin: 5px;
             background-color: #294e47;
             color: white;
+
             &:hover {
                 background-color: rgba(41, 78, 71, 0.85);
             }
@@ -39,6 +54,18 @@
     flex-direction: column;
     border: 1px solid gray;
     border-radius: 12px;
+
+    &__building {
+        button {
+            width: 100%;
+            border: none;
+            border-radius: 0;
+            font-size: 1.25rem;
+            background-color: white;
+            color: #373745;
+        }
+    }
+
     &__send {
         padding: 0.5rem;
         border: none;
@@ -47,14 +74,17 @@
         background-color: #294e47;
         color: white;
         font-size: 1.5rem;
+
         &:hover {
             background-color: rgba(41, 78, 71, 0.85);
         }
     }
+
     &__item:first-child {
         border-top-right-radius: 12px;
         border-top-left-radius: 12px;
     }
+
     &__item {
 
         text-align: center;
@@ -63,22 +93,26 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        *{
+
+        * {
             align-self: center;
         }
+
         &__title {
             font-size: 1.25rem;
             min-width: 70%;
             max-width: 70%;
         }
+
         input {
-            margin-top: 0,25rem;
+            margin-top: 0, 25rem;
             background-color: #F4F4F4;
             border: none;
             border: 1px solid gray;
             border-radius: 6px;
             padding: 0.5rem;
         }
+
         i {
             font-size: 1.5rem;
             cursor: pointer;

@@ -1,8 +1,8 @@
 import { useEffect, useContext, useState } from "react";
-import { checkHandler } from "./http/userAPI";
+import { checkHandler, getRolesHandle } from "./http/userAPI";
 import Header from "./components/header/header";
 import { Route, Routes } from "react-router";
-import { publicRoutes, authRoutes, semipublicRoutes, adminRoutes } from "./routes/routes";
+import { publicRoutes, semipublicRoutes, adminRoutes, clientRoutes, builderRoutes } from "./routes/routes";
 import { Footer } from "./components/footer/footer";
 import { Context } from './index';
 import { observer } from 'mobx-react-lite';
@@ -13,12 +13,18 @@ import Spinner from "react-bootstrap/esm/Spinner";
 
 const App = observer(() => {
   const { user } = useContext(Context)
+  const [roles, setRoles] = useState([])
   const [loading, setLoading] = useState(true)
   useEffect(() => {
     checkHandler().then(data => {
+
       if (data !== 401) {
         user.setUser(data)
         user.SetIsAuth(true)
+        getRolesHandle().then(data => {
+          console.log(data)
+          setRoles(data)
+        })
       }
       setLoading(false)
     })
@@ -43,15 +49,24 @@ const App = observer(() => {
               )}
             </Route>)
         }
-        {user.getIsAuth() &&
-          authRoutes.map(({ path, Component, children }) =>
+        {(user.getIsAuth() && (roles.includes(3))) &&
+          builderRoutes.map(({ path, Component, children }) =>
             <Route path={path} key={path} element={<Component />} >
               {children && children.map(({ path, Component }) =>
                 <Route path={path} key={path} element={<Component />} />
               )}
             </Route>)
         }
-        {user.getIsAuth() &&
+
+        {(user.getIsAuth() && (roles.includes(1) || roles.includes(2))) &&
+          clientRoutes.map(({ path, Component, children }) =>
+            <Route path={path} key={path} element={<Component />} >
+              {children && children.map(({ path, Component }) =>
+                <Route path={path} key={path} element={<Component />} />
+              )}
+            </Route>)
+        }
+        {(user.getIsAuth() && roles.includes(4)) &&
           adminRoutes.map(({ path, Component, children }) =>
             <Route path={path} key={path} element={<Component />} >
               {children && children.map(({ path, Component }) =>
