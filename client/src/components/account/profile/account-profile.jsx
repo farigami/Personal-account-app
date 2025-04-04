@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { profileHandler } from '../../../http/userAPI';
+import { changePasswordHandle, profileHandler } from '../../../http/userAPI';
 
+import { Alert } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import Spinner from 'react-bootstrap/Spinner';
-import Alert from 'react-bootstrap/Alert';
+
 
 export const AccountProfile = () => {
     const [profile, setProfile] = useState([])
@@ -14,21 +15,34 @@ export const AccountProfile = () => {
 
     useEffect(() => {
         profileHandler().then(data => {
+            console.log(data)
             setProfile(data)
             setLoading(false)
         })
     }, [])
+    const sendProfileDataHandle = () => {
+        if (newPassword.length) {
+            if (newPassword !== newPasswordConfirm) {
+                setMessage(
+                    <Alert variant='danger'>
+                        Пароли не совпадают
+                    </Alert>
+                )
+                return
+            } else if (newPassword === newPasswordConfirm) {
+                setMessage(
+                    <Alert variant='success'>
+                        Пароль успешно изменен
+                    </Alert>
+                )
+                changePasswordHandle(newPassword).then(data => {console.log(data)})
+            }
+        }
+
+    }
     const newProfileDataHandle = (e) => {
-        setProfile({...profile, [e.target.name]: e.target.value})
-        // if (newPassword !== newPasswordConfirm || newPassword.length) {
-        //     setMessage(
-        //         <Alert variant='danger'>
-        //             Пароли не совпадают
-        //         </Alert>
-        //     )
-        // } else if (newPassword === newPasswordConfirm) {
-        //     setProfile({ ...profile, new_password: newPassword })
-        // }
+        setProfile({ ...profile, [e.target.name]: e.target.value })
+
     }
     return (
         <>
@@ -45,7 +59,7 @@ export const AccountProfile = () => {
                     <Form.Control
                         type="tel"
                         name="phone"
-                        value={profile.phone}
+                        value={profile.phone_number}
                         onChange={(e) => newProfileDataHandle(e)}
                     />
                     <br />
@@ -81,7 +95,7 @@ export const AccountProfile = () => {
 
                 </Form.Group>
                 {message && message}
-                <button onClick={(e) => { e.preventDefault(); }} className='account-data__button'>Сохранить изменения</button>
+                <button onClick={(e) => {e.preventDefault(); sendProfileDataHandle() }} className='account-data__button'>Сохранить изменения</button>
             </Form>
         </>
     )

@@ -26,3 +26,8 @@ export const getRolesHandle = async () => {
     const { data } = await $authHost.get(`/users/role/`)
     return data
 }
+
+export const changePasswordHandle = async (password) => {
+    const {data} = await $authHost.post('/users/update_password', {password: password})
+    return data
+}

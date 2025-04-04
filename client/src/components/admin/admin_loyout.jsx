@@ -5,6 +5,7 @@ import Container from "react-bootstrap/esm/Container"
 import './admin.scss'
 import { AdminUsersList } from './admin-users/users-list';
 import { CollatealList } from './admin-collateral/collateral-list';
+import { BuildingList } from './admin-building/building-list';
 
 export const AdminLoyout = () => {
     return (
@@ -19,7 +20,7 @@ export const AdminLoyout = () => {
                     <AdminUsersList />
                 </Tab>
                 <Tab eventKey="objects" title="Объекты">
-                    Tab content for Profile
+                    <BuildingList />
                 </Tab>
                 <Tab eventKey="collateral" title="Заявки обеспечения">
                     <CollatealList />

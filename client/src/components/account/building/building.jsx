@@ -8,7 +8,7 @@ const BuildingCard = () => {
             <Card.Body>
                 <Card.Title>Название объекта</Card.Title>
                 <Card.Text>
-                    <p style={{'color': 'orange'}}>Дедлайн:12.03.2025</p>
+                    <p>Заметики: </p>
                     Клиент: Иванов Иван
                 </Card.Text>
                 <Button variant="success">Перейти к объекту</Button>

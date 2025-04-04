@@ -30,8 +30,7 @@ export const CreateUserModal = ({ show, onHide }) => {
         let current_user = userForm
         current_user.roles = selectedRole.map(selected => { return selected.additional_id })
         registerUserHandle(current_user).then((data, status) => {
-            console.log(data)
-            if (data == 201) {
+            if (data === 201) {
                 setSuccess(true)
             }
             setMessage(data.message)
@@ -160,7 +159,7 @@ export const CreateUserModal = ({ show, onHide }) => {
 
             <Modal.Footer>
                 <Button variant="secondary" onClick={() => onHide(true)}>Закрыть</Button>
-                <Button variant="primary" onClick={() => registerHandler()}>Добавить пользователя</Button>
+                <Button variant="success" onClick={() => registerHandler()}>Добавить пользователя</Button>
             </Modal.Footer>
         </Modal>
     )

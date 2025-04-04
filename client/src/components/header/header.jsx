@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ACCOUNT_MAIN_PAGE, ACCOUNT_PAGE, MAIN_PAGE, SIGNIN_PAGE } from '../../utils/consts';
+import { ACCOUNT_MAIN_PAGE, SIGNIN_PAGE } from '../../utils/consts';
 import { Context } from '../..';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -19,7 +19,7 @@ const Header = observer(() => {
         <Navbar expand="xl" className="header">
             <Container>
                 <Navbar.Brand>
-                    <Link to={user.getIsAuth() ? ACCOUNT_MAIN_PAGE : MAIN_PAGE}>
+                    <Link to={user.getIsAuth() ? ACCOUNT_MAIN_PAGE : SIGNIN_PAGE}>
                         <img className='header__logo' src={logo} alt="" />
                     </Link>
                 </Navbar.Brand>
