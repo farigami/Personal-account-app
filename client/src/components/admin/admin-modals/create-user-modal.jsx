@@ -91,17 +91,17 @@ export const CreateUserModal = ({ show, onHide }) => {
 
                             />
                             <Form.Control
+                                name='patronymic'
+                                onChange={changeHandler}
+                                className="mt-3"
+                                placeholder="Отчество"
+                            />
+                            <Form.Control
                                 name='phone'
                                 onChange={changeHandler}
                                 className="mt-3"
                                 placeholder="Номер телефона"
 
-                            />
-                            <Form.Control
-                                name='patronymic'
-                                onChange={changeHandler}
-                                className="mt-3"
-                                placeholder="Отчество"
                             />
                             <Form.Control
                                 name='login'
@@ -159,7 +159,7 @@ export const CreateUserModal = ({ show, onHide }) => {
 
             <Modal.Footer>
                 <Button variant="secondary" onClick={() => onHide(true)}>Закрыть</Button>
-                <Button variant="success" onClick={() => registerHandler()}>Добавить пользователя</Button>
+                {!success && <Button variant="success" onClick={() => registerHandler()}>Добавить пользователя</Button>}
             </Modal.Footer>
         </Modal>
     )

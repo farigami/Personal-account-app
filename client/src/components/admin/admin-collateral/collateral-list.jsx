@@ -65,7 +65,7 @@ export const CollatealList = () => {
                             <tr key={index}>
                                 <td>{index + 1}</td>
                                 <td>{item.building}</td>
-                                <td>Жебель Т.C.</td>
+                                <td>Добрыдин М.В.</td>
                                 <td>{item.created_date}</td>
                                 <td>{item.items.length}</td>
                                 <td><Link to={`/admin/collateral/${index}`}>Перейти</Link></td>

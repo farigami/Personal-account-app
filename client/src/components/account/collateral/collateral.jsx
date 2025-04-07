@@ -2,9 +2,10 @@ import Container from "react-bootstrap/esm/Container"
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Button } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './collateral.scss'
 import { createCollateralHandle } from "../../../http/collateralAPI";
+import { getBuildingListHandle } from "../../../http/adminAPI";
 
 
 
@@ -48,9 +49,17 @@ const CollateralSuccess = ({ items }) => {
 export const CollateralApplication = () => {
     const items = require('./data.json')
     const [success, setSuccess] = useState(false)
+    const [objects, setObjects] = useState([])
     const [building, setBuilding] = useState('')
     const [variants, setVariants] = useState([])
     const [selected, setSelected] = useState([])
+    useEffect(() => {
+        getBuildingListHandle().then(data => {
+            setObjects(data)
+
+        })
+    }, [])
+
     const ItemsSearchHandler = (value) => {
         const correct_variants = items.filter((item) => !value.toLowerCase() !== item.title.toLowerCase().startsWith(value))
         setVariants(correct_variants)
@@ -78,12 +87,12 @@ export const CollateralApplication = () => {
         var today = new Date();
         var time = String(today.getTime())
         var dd = String(today.getDate()).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
         var yyyy = today.getFullYear();
         today = dd + '.' + mm + '.' + yyyy;
-        const current_data = { items: selected, building: building, created_date: today}
-        createCollateralHandle(current_data).then(data => { 
-            setSuccess(true) 
+        const current_data = { items: selected, building: building, created_date: today }
+        createCollateralHandle(current_data).then(data => {
+            setSuccess(true)
         })
 
     }
@@ -109,13 +118,18 @@ export const CollateralApplication = () => {
                     <Dropdown className="collateral-selected__building" >
                         <Dropdown.Toggle variant='secondary'>{!building ? "Выберите Объект" : `Выбран объект: ${building}`}</Dropdown.Toggle>
                         <Dropdown.Menu>
+                            {
+                                objects.map(obj => {
+                                    return (<Dropdown.Item
+                                        onClick={() => setBuilding(obj)}
 
-                            <Dropdown.Item
-                                onClick={() => setBuilding('Патрушево')}
+                                    >
+                                        {obj}
+                                    </Dropdown.Item>
+                                    )
+                                })
+                            }
 
-                            >
-                                Патрушево
-                            </Dropdown.Item>
 
                         </Dropdown.Menu>
                     </Dropdown>

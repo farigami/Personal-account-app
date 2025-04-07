@@ -41,9 +41,9 @@ export const AccountMenu = observer(() => {
                         <div className='account-menu__links__body__top'>
                         <Link className='nav-link' to={ACCOUNT_MAIN_PAGE} onClick={() => handleClose()}>Главная</Link>
                            <Link className='nav-link' to={ACCOUNT_PROFILE_PAGE} onClick={() => handleClose()}>Личные данные</Link>
-                            <Link className='nav-link' to={ACCOUNT_COLLATERAL_PAGE} onClick={() => handleClose()}>Заявки обеспечения</Link>
+                            {/* <Link className='nav-link' to={ACCOUNT_COLLATERAL_PAGE} onClick={() => handleClose()}>Заявки обеспечения</Link>
                             <Link className='nav-link' to={ACCOUNT_PHOTO_REPORT} onClick={() => handleClose()}>Фотоотчёт строительства</Link>
-                            <Link className='nav-link' to={ACCOUNT_BUILDING_PAGE} onClick={() => handleClose()}>Управление объектами</Link>
+                            <Link className='nav-link' to={ACCOUNT_BUILDING_PAGE} onClick={() => handleClose()}>Управление объектами</Link> */}
                             <Link className='nav-link' to={ACCOUNT_NOTIFICATION_PAGE} onClick={() => handleClose()}>Подписки</Link>
  
                         </div>

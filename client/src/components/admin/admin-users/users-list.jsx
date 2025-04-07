@@ -7,6 +7,10 @@ import { Link } from 'react-router';
 import { CreateUserModal } from '../admin-modals/create-user-modal';
 
 export const AdminUsersList = () => {
+    const structures = {
+        1: 'Леском',
+        2: 'Элитстрой'
+    }
     const [loading, setLoading] = useState(true)
     const [users, setUsers] = useState([])
     const [createUserVisible, setCreateUserVisible] = useState(false)
@@ -15,7 +19,7 @@ export const AdminUsersList = () => {
             setUsers(data)
             setLoading(false)
         })
-    }, [])
+    }, [createUserVisible])
     if (loading) { return (<Spinner className="m-4" animation="border" variant="success"></Spinner>) }
     return (
         <>
@@ -24,12 +28,11 @@ export const AdminUsersList = () => {
                 <thead>
                     <tr>
                         <th>id</th>
-                        <th>Имя</th>
-                        <th>Фамилия</th>
-                        <th>Отчество</th>
+                        <th>ФИО</th>
+                        <th>Организация</th>
+                        <th>Роли</th>
                         <th>Логин</th>
                         <th>Номер телефона</th>
-                        <th>Роли</th>
                         <th>Ссылка</th>
                     </tr>
                 </thead>
@@ -40,12 +43,11 @@ export const AdminUsersList = () => {
                             return (
                                 <tr key={user.id}>
                                     <td>{user.id}</td>
-                                    <td>{user.first_name}</td>
-                                    <td>{user.last_name}</td>
-                                    <td>{user.patronymic}</td>
+                                    <td>{user.last_name} {user.first_name} {user.patronymic}</td>
+                                    <td>{structures[user.structure_id]}</td>
+                                    <td>{user.roles.map(role => {return <span style={{'background-color': 'paleturquoise', 'padding': '5px 10px', 'border-radius': '12px'}}>{role}</span>})}</td>
                                     <td>{user.login}</td>
                                     <td>{user.phone}</td>
-                                    <td>admin</td>
                                     <td><Link to={`/admin/user/${user.id}`}>Перейти</Link></td>
                                 </tr>
                             )

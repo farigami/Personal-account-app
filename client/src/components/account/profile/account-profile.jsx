@@ -15,7 +15,6 @@ export const AccountProfile = () => {
 
     useEffect(() => {
         profileHandler().then(data => {
-            console.log(data)
             setProfile(data)
             setLoading(false)
         })
@@ -35,7 +34,7 @@ export const AccountProfile = () => {
                         Пароль успешно изменен
                     </Alert>
                 )
-                changePasswordHandle(newPassword).then(data => {console.log(data)})
+                changePasswordHandle(newPassword).then(data => {})
             }
         }
 

@@ -17,11 +17,10 @@ export const AdminUserProfile = () => {
     const [profile, setProfile] = useState([])
     useEffect(() => {
         getUserHandle(params.id).then(data => {
-            console.log(data)
             setProfile(data)
             setLoading(false)
         })
-    }, [])
+    }, [params.id])
     if (loading) { return <Spinner className="m-4" variant="success"></Spinner> }
     return (
         <>

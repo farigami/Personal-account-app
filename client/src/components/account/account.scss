@@ -68,6 +68,9 @@
             display: flex;
             text-align: center;
             justify-content: center;
+            &__top {
+                width: 100%;
+            }
             &__bottom {
                 &__profile {
                     text-align: center;

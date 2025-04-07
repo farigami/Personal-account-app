@@ -6,7 +6,6 @@ export const registerUserHandle = async (user) => {
         if (data.status === 201) {
             return data.data, data.status
         }
-        console.log(data)
         return data
     } catch (e) {
         if (e.status === 409) {
@@ -16,8 +15,10 @@ export const registerUserHandle = async (user) => {
 
 }
 
-export const createBuildingHandle = async () => {
-    const {data} = await $authHost.post('/users/building/create', {value: 'Советский'})
+export const createBuildingHandle = async (value) => {
+    console.log(value)
+    const { data } = await $authHost.post('/users/building/create', { value: value })
+    return data
 }
 
 export const getUsersListHandle = async () => {
@@ -25,12 +26,17 @@ export const getUsersListHandle = async () => {
     return data
 }
 
-    export const getRoleTypesHandle = async () => {
-        const { data } = await $authHost.get('/users/roles')
-        return data
-    }
+export const getBuildingListHandle = async () => {
+    const { data } = await $authHost.get('users/building/get_all')
+    return data
+}
 
-    export const getUserHandle = async (user_id) => {
-        const { data } = await $authHost.get(`/users/get/${user_id}`)
-        return data
-    }
+export const getRoleTypesHandle = async () => {
+    const { data } = await $authHost.get('/users/roles')
+    return data
+}
+
+export const getUserHandle = async (user_id) => {
+    const { data } = await $authHost.get(`/users/get/${user_id}`)
+    return data
+}
