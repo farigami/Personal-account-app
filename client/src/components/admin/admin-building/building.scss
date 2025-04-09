@@ -1,0 +1,91 @@
+.building {
+    &__title {
+        font-size: 2rem;
+        text-align: center;
+
+        span {
+            vertical-align: 0.25rem;
+            font-size: 1rem;
+            color: white;
+            background-color: #294e47;
+            padding: 6px;
+            border-radius: 12px;
+        }
+    }
+
+    &__content {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        &__choose {
+            max-height: 12rem;
+            max-width: 24rem;
+            border-radius: 6px;
+            border: 2px solid lightgray;
+            padding: 1rem;
+            font-size: 1.5rem;
+        }
+
+        &__estimate {
+            max-height: 12rem;
+            max-width: 24rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1rem;
+            border-radius: 6px;
+            border: 2px solid lightgray;
+
+            span {
+                color: red;
+            }
+        }
+
+        &__photo {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 6px;
+            border: 2px solid lightgray;
+            &__items {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+            }
+            &__cross {
+                position: absolute;
+                transform: translateX(-48px);
+                border: none;
+                background-color: rgba(255, 255, 255, 0.85);
+                border-bottom-left-radius: 6px;
+                font-size: 2rem;
+                &:hover {
+                    color: red
+                }
+            }
+            label {
+                font-size: 1.5rem;
+            }
+            input {
+                padding: 1rem;
+                align-self: center;
+                font-size: 2rem;
+                font-weight: 200;
+                #file-upload-button {
+                    background-color: white;
+                }
+            }
+            p {
+                font-size: 2rem;
+                font-weight: 200;
+            }
+
+          
+
+        }
+    }
+}

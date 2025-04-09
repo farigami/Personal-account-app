@@ -15,8 +15,17 @@ export const registerUserHandle = async (user) => {
 
 }
 
+export const getBuildingHandle = async (object_id) => {
+    const {data} = await $authHost.get(`/users/building/get/${object_id}`)
+    return data
+}
+
+export const getCustomersHandle = async () => {
+    const {data} = await $authHost.get('/users/customers')
+    return data
+}
+
 export const createBuildingHandle = async (value) => {
-    console.log(value)
     const { data } = await $authHost.post('/users/building/create', { value: value })
     return data
 }

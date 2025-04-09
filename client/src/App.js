@@ -17,12 +17,10 @@ const App = observer(() => {
   const [loading, setLoading] = useState(true)
   useEffect(() => {
     checkHandler().then(data => {
-
       if (data !== 401) {
         user.setUser(data)
         user.SetIsAuth(true)
         getRolesHandle().then(data => {
-          console.log(data)
           setRoles(data)
         })
       }

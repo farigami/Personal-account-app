@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Button, Spinner, Table } from "react-bootstrap"
 import { CreateBuildingModal } from "../admin-modals/create-building-modal"
 import { getBuildingListHandle } from "../../../http/adminAPI"
+import { Link } from "react-router"
 
 export const BuildingList = () => {
     const [items, setItems] = useState([])
@@ -22,7 +23,7 @@ export const BuildingList = () => {
                     <tr>
                         <th>№ Объекта</th>
                         <th>Название</th>
-                        
+                        <th>Ссылка</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +32,7 @@ export const BuildingList = () => {
                             <tr key={item.id}>
                                 <td>{item.id}</td>
                                 <td>{item.value}</td>
+                                <td><Link to={`/admin/building/${item.id}`}>Ссылка</Link></td>
                             </tr>
                         )
                     })}

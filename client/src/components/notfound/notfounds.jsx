@@ -12,7 +12,7 @@ export const NotFound = observer(() => {
         setTime(time - 1)
         if (time === 0 && user.getIsAuth()){
             navigate(ACCOUNT_MAIN_PAGE)
-        }else if(time === 0 && !user.getIsAuth()){
+        }else if(time <= 0 && !user.getIsAuth()){
             navigate(SIGNIN_PAGE)
         }
     }
@@ -22,8 +22,8 @@ export const NotFound = observer(() => {
     })
     return (
         <div className="m-auto text-center">
-            <div className="h1">Страница не найдена 404</div>
-            <div className="h3">Вы будете перенаправлены на другую страницу через {time}</div>
+            <div className="h1">Что то пошло не так😅</div>
+            <div className="h3">Вы будете перенаправлены на другую страницу через {time} или обновите страницу</div>
         </div>
     )
 })

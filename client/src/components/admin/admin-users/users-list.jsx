@@ -16,6 +16,7 @@ export const AdminUsersList = () => {
     const [createUserVisible, setCreateUserVisible] = useState(false)
     useEffect(() => {
         getUsersListHandle().then(data => {
+            console.log(data)
             setUsers(data)
             setLoading(false)
         })
@@ -33,6 +34,7 @@ export const AdminUsersList = () => {
                         <th>Роли</th>
                         <th>Логин</th>
                         <th>Номер телефона</th>
+                        <th>Телеграмм</th>
                         <th>Ссылка</th>
                     </tr>
                 </thead>
@@ -48,6 +50,7 @@ export const AdminUsersList = () => {
                                     <td>{user.roles.map(role => {return <span style={{'background-color': 'paleturquoise', 'padding': '5px 10px', 'border-radius': '12px'}}>{role}</span>})}</td>
                                     <td>{user.login}</td>
                                     <td>{user.phone}</td>
+                                    <td><a href={`https://t.me/${user.telegram_username}`}>{user.telegram_username}</a></td>
                                     <td><Link to={`/admin/user/${user.id}`}>Перейти</Link></td>
                                 </tr>
                             )

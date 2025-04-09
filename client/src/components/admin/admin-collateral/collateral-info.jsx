@@ -20,7 +20,8 @@ export const CollateralInfo = () => {
                 total_margin = total_margin + item_margin
                 return [
                     { value: parseInt(param.id) + 1 },
-                    { value: data.building }, { value: '' },
+                    { value: data.building }, 
+                    { value: '' },
                     { value: item.title },
                     { value: item.type },
                     { value: item.value, },
@@ -40,7 +41,6 @@ export const CollateralInfo = () => {
     const replacer = (str) => {
         let res = str.replace(',', '.')
         res = res.replace(/\s/g, '')
-        console.log(res)
         return res
     }
     const addRowHandler = () => {
