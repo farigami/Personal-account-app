@@ -16,7 +16,7 @@ export const registerUserHandle = async (user) => {
 }
 
 export const getBuildingHandle = async (object_id) => {
-    const {data} = await $authHost.get(`/users/building/get/${object_id}`)
+    const {data} = await $authHost.get(`/building/get/${object_id}`)
     return data
 }
 
@@ -25,8 +25,30 @@ export const getCustomersHandle = async () => {
     return data
 }
 
+export const setCustomerHandle = async (customer_id, object_id) => {
+    console.log(customer_id, object_id)
+    const {data} = await $authHost.post('/building/customer', {customer_id: customer_id, object_id: object_id})
+    return data
+}
+
 export const createBuildingHandle = async (value) => {
-    const { data } = await $authHost.post('/users/building/create', { value: value })
+    const { data } = await $authHost.post('/building/create', { value: value })
+    return data
+}
+
+export const getBuildingListHandle = async () => {
+    const { data } = await $authHost.get('/building/get_all')
+    return data
+}
+
+export const getBuildingStages = async (object_id) => {
+    const {data} = await $authHost.post('/building/get-stages', {object_id: object_id})
+    return data
+}
+
+export const sendPhotoReport = async (formData) => {
+    const {data} = await $authHost.post('/building/photo-report', formData)
+    console.log(data)
     return data
 }
 
@@ -35,10 +57,6 @@ export const getUsersListHandle = async () => {
     return data
 }
 
-export const getBuildingListHandle = async () => {
-    const { data } = await $authHost.get('users/building/get_all')
-    return data
-}
 
 export const getRoleTypesHandle = async () => {
     const { data } = await $authHost.get('/users/roles')
