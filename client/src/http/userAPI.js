@@ -31,3 +31,8 @@ export const changePasswordHandle = async (password) => {
     const {data} = await $authHost.post('/users/update_password', {password: password})
     return data
 }
+
+export const getPhotoReport = async() => {
+    const {data} = await $authHost.get('/building/get-photo-reports')
+    return data
+}

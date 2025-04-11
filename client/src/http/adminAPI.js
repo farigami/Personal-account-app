@@ -52,6 +52,11 @@ export const sendPhotoReport = async (formData) => {
     return data
 }
 
+export const getPhotoReport = async (object_id) => {
+    const {data} = await $authHost.post('/building/get-photo-reports', {object_id: object_id})
+    return data
+}
+
 export const getUsersListHandle = async () => {
     const { data } = await $authHost.get('/users/get')
     return data

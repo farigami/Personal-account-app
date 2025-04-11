@@ -30,16 +30,47 @@
         }
     }
 
+    &__content {
+        margin: 1rem 0;
+        display: flex;
+        flex-wrap: wrap;
+        border: 2px dashed #294e47;
+        justify-content: center;
+        span {
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 200;
+            width: 100%;
+            transform: translateY(-2px);
+            padding: 0.25rem 1rem;
+            background-color: #294e47;
+            color: white;
+        }
+    }
+
     img {
         cursor: pointer;
-        margin: 1rem;
-        border-radius: 24px;
-        height: 300px;
-        min-width: 30vw;
-        width: 75vw;
-        max-width: 490px;
+        margin: 0 1rem;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        border-radius: 12px;
+        height: 20vw;
+        width: 20vw;
         &:hover {
             opacity: 85%;
+        }
+    }
+    &__empty {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        i {
+            color: #294e47;
+            font-size: 24vw;
+        }
+        &__title {
+            font-size: 2rem;
+            font-weight: 200;
         }
     }
 }

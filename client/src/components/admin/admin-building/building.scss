@@ -104,6 +104,18 @@
                 font-size: 2rem;
                 font-weight: 200;
             }
+            &__images {
+                display: flex;
+                flex-wrap: wrap;
+                &__stages {
+                    position: absolute;
+                    display: flex;
+                    color: white;
+                    padding: 0.5rem;
+                    border-radius: 12px;
+                    background-color: #294e47;
+                }
+            }
         }
     }
 }

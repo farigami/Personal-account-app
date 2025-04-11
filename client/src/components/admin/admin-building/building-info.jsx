@@ -3,7 +3,7 @@ import { ADMIN_PAGE } from "../../../utils/consts"
 import { Button, Container, Dropdown, Spinner } from "react-bootstrap"
 import './building.scss'
 import { useContext, useEffect, useState } from "react"
-import { getBuildingHandle, getBuildingStages, getCustomersHandle, sendPhotoReport, setCustomerHandle } from "../../../http/adminAPI"
+import { getBuildingHandle, getBuildingStages, getCustomersHandle, getPhotoReport, sendPhotoReport, setCustomerHandle } from "../../../http/adminAPI"
 import { Alert } from 'react-bootstrap';
 import { Context } from "../../.."
 import { observer } from "mobx-react-lite"
@@ -14,14 +14,19 @@ import { observer } from "mobx-react-lite"
 export const BuildingInfo = observer(() => {
     const { user } = useContext(Context)
     const navigate = useNavigate()
+    const param = useParams()
     const [loading, setLoading] = useState(true)
     const [userLoading, setUserLoading] = useState(true)
-    const param = useParams()
+    const [photoReportsLoading, setPhotoReportsLoading] = useState(true)
+    const [buildingStagesLoading, setBuildingStagesLoading] = useState(true)
+
     const [buildingStage, setBuildingStage] = useState('')
     const [buildingStages, setBuildingStages] = useState([])
+    const [photoReports, setPhotoReports] = useState([])
     const [files, setFiles] = useState([]);
-    const [notificationCustomer, setNotificationCustomer] = useState(false)
     const [previews, setPreviews] = useState([]);
+
+    const [notificationCustomer, setNotificationCustomer] = useState(false)
     const [building, setBuilding] = useState()
     const [newCustomer, setNewCustomer] = useState(false)
     const [customers, setCustomers] = useState([])
@@ -31,14 +36,22 @@ export const BuildingInfo = observer(() => {
             getBuildingStages(data.id).then(data => {
                 setBuildingStages(data)
                 setLoading(false)
+                setBuildingStagesLoading(false)
+
             })
-            setLoading(false)
+            getPhotoReport(data.id).then(data => {
+                setPhotoReports(data)
+                setPhotoReportsLoading(false)
+            }
+            )
+
+
         })
         getCustomersHandle().then(data => {
             setCustomers(data)
             setUserLoading(false)
         })
-    }, [param.id])
+    }, [param.id, files])
 
 
     const addCustomerHandle = () => {
@@ -53,7 +66,7 @@ export const BuildingInfo = observer(() => {
     }
 
     const addPhotoReport = () => {
-        if (!buildingStage){
+        if (!buildingStage) {
             alert('Выберете этап')
             return
         }
@@ -62,12 +75,15 @@ export const BuildingInfo = observer(() => {
             formData.append('files', file)
         })
         formData.append('task_id', buildingStage.id)
-        sendPhotoReport(formData).then(data=> console.log(data))
+        sendPhotoReport(formData).then(data => {
+            setFiles([])
+            setPreviews([])
+        }
+        )
     }
 
     const handleFileChange = (e) => {
         const selectedFiles = Array.from(e.target.files);
-
         // Создание превью для изображений
         const filePreviews = selectedFiles.map((file) => ({
             file,
@@ -98,7 +114,7 @@ export const BuildingInfo = observer(() => {
     if (loading) { return (<Spinner className="m-4" animation="border" variant="success"></Spinner>) }
     return (
         <Container className="mb-2">
-            <Button className="m-1" onClick={() => { navigate(ADMIN_PAGE) }} variant="secondary"><i class="bi bi-arrow-bar-left"></i>Назад</Button>
+            <Button className="m-1" onClick={() => { navigate(ADMIN_PAGE) }} variant="secondary"><i className="bi bi-arrow-bar-left"></i>Назад</Button>
             <div className="building">
                 <div className="building__title">Объект: {building.value} <span>{building.parent_id === 1 ? 'Леском' : 'Элитсрой'}</span></div>
                 <div className="building__content">
@@ -113,9 +129,7 @@ export const BuildingInfo = observer(() => {
                                                 {building.meta_data === null && !newCustomer && 'Выберете пользователя'}
                                                 {building.meta_data && !newCustomer && getCustomer(building.meta_data.customer)}
                                                 {newCustomer && newCustomer.first_name}
-                                                
                                             </Dropdown.Toggle>
-
                                             <Dropdown.Menu>
                                                 {
                                                     customers.map(customer => {
@@ -184,13 +198,13 @@ export const BuildingInfo = observer(() => {
                                         className="building__content__photo__cross"
                                         onClick={() => handleRemove(index)}
                                     >
-                                        <i class="bi bi-x-lg"></i>
+                                        <i className="bi bi-x-lg"></i>
                                     </button>
                                 </div>
                             ))}
                         </div>
                         {files.length ? <hr /> : null}
-                        <label for="files" class="btn">Перенесите изображения<i style={{ 'position': 'absolute', 'transform': 'translateY(10px) rotate(90deg)' }} class="bi bi-arrow-90deg-right"></i></label>
+                        <label for="files" className="btn">Перенесите изображения<i style={{ 'position': 'absolute', 'transform': 'translateY(10px) rotate(90deg)' }} className="bi bi-arrow-90deg-right"></i></label>
                         <input
                             id="files" style={{ "opacity": "0", "width": "100%" }}
                             type="file"
@@ -202,6 +216,39 @@ export const BuildingInfo = observer(() => {
                     <div className="building__content__loaded">
                         <div className="building__content__loaded__title">Загруженные фотоотчёты</div>
                         <hr />
+                        {photoReportsLoading ?
+                            <Spinner className="m-4" key={1} animation="border" variant="success"></Spinner> :
+                            <div className="building__content__loaded__images" key={photoReports.length}>
+                                {photoReports.map((item) => {
+                                    return (
+                                        <div className="m-1 p-1" style={{ border: '2px dashed #294e47' }}>
+                                            <div
+                                                key={item.id}
+                                                className="building__content__loaded__images__stages"
+                                            >
+                                                {buildingStagesLoading ?
+                                                    <Spinner size="sm" animation="border" variant="success"></Spinner> :
+                                                    buildingStages.filter(stage => stage.id === item.task_id)[0].value
+                                                }
+                                            </div>
+                                            {item.meta_data && item.meta_data.photo.map((photo, index) => {
+                                                return (
+                                                    <img
+                                                        key={index}
+                                                        className="m-1"
+                                                        src={process.env.REACT_APP_API_URL + photo}
+                                                        alt="preview"
+                                                        width="200"
+                                                        height="200"
+                                                        style={{ borderRadius: "6px" }}
+                                                    />
+                                                )
+                                            })}
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        }
                     </div>
                 </div>
 
