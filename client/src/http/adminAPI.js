@@ -26,7 +26,6 @@ export const getCustomersHandle = async () => {
 }
 
 export const setCustomerHandle = async (customer_id, object_id) => {
-    console.log(customer_id, object_id)
     const {data} = await $authHost.post('/building/customer', {customer_id: customer_id, object_id: object_id})
     return data
 }
@@ -48,7 +47,6 @@ export const getBuildingStages = async (object_id) => {
 
 export const sendPhotoReport = async (formData) => {
     const {data} = await $authHost.post('/building/photo-report', formData)
-    console.log(data)
     return data
 }
 

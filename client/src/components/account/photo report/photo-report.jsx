@@ -13,7 +13,6 @@ export const PhotoReport = observer(() => {
     const [loading, setLoading] = useState(true)
     useEffect(() => {
         getPhotoReport().then(data => {
-            console.log(data)
             setItems(data)
             setLoading(false)
         })

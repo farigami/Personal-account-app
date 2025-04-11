@@ -45,10 +45,10 @@ export const adminRoutes = [
                 Component: AccountProfile,
                 path: ACCOUNT_PROFILE_PAGE
             },
-            {
-                Component: Building,
-                path: ACCOUNT_BUILDING_PAGE
-            },
+            // {
+            //     Component: Building,
+            //     path: ACCOUNT_BUILDING_PAGE
+            // },
             {
                 Component: PhotoReport,
                 path: ACCOUNT_PHOTO_REPORT

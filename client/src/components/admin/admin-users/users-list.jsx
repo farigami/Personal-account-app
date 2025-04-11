@@ -16,7 +16,6 @@ export const AdminUsersList = () => {
     const [createUserVisible, setCreateUserVisible] = useState(false)
     useEffect(() => {
         getUsersListHandle().then(data => {
-            console.log(data)
             setUsers(data)
             setLoading(false)
         })

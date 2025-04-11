@@ -48,15 +48,6 @@ export const AccountMain = observer(() => {
             }
 
             {
-                roles.includes(4) &&
-                <Link className="account-choose__section" to={ACCOUNT_BUILDING_PAGE}>
-                    <i class="account-choose__section__icon bi bi-houses"></i>
-                    <div className="account-choose__section__title">
-                        Управление объектами
-                    </div>
-                </Link>
-            }
-            {
                 (roles.includes(1) || roles.includes(2)) &&
                 <Link className="account-choose__section" to={ACCOUNT_DOCUMENTS_PAGE}>
                     <i class="account-choose__section__icon bi bi-file-text"></i>
